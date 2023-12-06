@@ -46,7 +46,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials.');
     }
 
-    const token = jwt.sign(email, process.env.USER_KEY);
+    const token = jwt.sign({ email }, process.env.USER_KEY);
 
     return new Token(token);
   }

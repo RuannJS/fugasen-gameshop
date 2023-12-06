@@ -2,6 +2,6 @@ export class Token {
   token: string;
 
   constructor(token: string) {
-    this.token = `Bearer $${token}`;
+    this.token = `Bearer ${token}`;
   }
 }
