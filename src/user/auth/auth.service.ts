@@ -3,13 +3,13 @@ import {
   ConflictException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { SignupUserDto } from './dto/signup-user.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { User } from '../user.entity';
 import { SigninUserDto } from './dto/signin-user.dto';
-import { Token } from 'src/jsonwebtoken/token.class';
+import { Token } from '../../jsonwebtoken/token.class';
 
 @Injectable()
 export class AuthService {
@@ -20,7 +20,7 @@ export class AuthService {
       where: { email: data.email },
     });
 
-    if (verifyEmail) {
+    if (verifyEmail.email == data.email) {
       throw new ConflictException('Email already in use.');
     }
 
@@ -40,7 +40,7 @@ export class AuthService {
       throw new UnauthorizedException('Invalid credentials.');
     }
 
-    const verifyPassword = await bcrypt.compare(password, verifyEmail.password);
+    const verifyPassword = bcrypt.compare(password, verifyEmail.password);
 
     if (!verifyPassword) {
       throw new UnauthorizedException('Invalid credentials.');
