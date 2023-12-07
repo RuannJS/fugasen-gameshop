@@ -3,7 +3,7 @@ import { UserController } from './user.controller';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { ObjectId } from 'mongodb';
-import { Token } from '../jsonwebtoken/token.class';
+import { Token } from '../tokens/jwt/token.class';
 import { AuthService } from './auth/auth.service';
 import { SignupUserDto } from './auth/dto/signup-user.dto';
 import { SigninUserDto } from './auth/dto/signin-user.dto';

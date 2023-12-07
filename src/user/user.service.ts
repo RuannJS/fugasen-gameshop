@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { User } from './user.entity';
-import { DecodedJWT } from '../jsonwebtoken/decodedJWT.class';
+import { DecodedJWT } from '../tokens/jwt/decodedJWT.class';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()

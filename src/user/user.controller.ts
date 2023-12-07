@@ -15,11 +15,11 @@ import { AuthService } from './auth/auth.service';
 import { SignupUserDto } from './auth/dto/signup-user.dto';
 import { User } from './user.entity';
 import { SigninUserDto } from './auth/dto/signin-user.dto';
-import { Token } from '../jsonwebtoken/token.class';
+import { Token } from '../tokens/jwt/token.class';
 import { UserGuard } from '../guards/user/user.guard';
 import { UserInterceptor } from '../interceptors/user/user.interceptor';
 import { UserDecorator } from '../decorators/user/user.decorator';
-import { DecodedJWT } from '../jsonwebtoken/decodedJWT.class';
+import { DecodedJWT } from '../tokens/jwt/decodedJWT.class';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')

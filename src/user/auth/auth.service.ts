@@ -9,7 +9,7 @@ import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { User } from '../user.entity';
 import { SigninUserDto } from './dto/signin-user.dto';
-import { Token } from '../../jsonwebtoken/token.class';
+import { Token } from '../../tokens/jwt/token.class';
 
 @Injectable()
 export class AuthService {
