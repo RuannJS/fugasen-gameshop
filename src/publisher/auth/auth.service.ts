@@ -3,11 +3,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../../prisma/prisma.service';
 import { SignupPublisherDto } from './dto/signup-publisher.dto';
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { PublisherKey } from 'src/tokens/bcrypt/publisher-key.class';
+import { PublisherKey } from '../../tokens/bcrypt/publisher-key.class';
 import { SigninPublisherDto } from './dto/signin-publisher.dto';
 import { Token } from '../../tokens/jwt/token.class';
 
@@ -23,7 +23,7 @@ export class AuthService {
       where: { name },
     });
 
-    if (checkName) {
+    if (checkName.name === name) {
       throw new ConflictException('Name not available.');
     }
 

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { Publisher } from './publisher.entity';
-import { DecodedPublisher } from 'src/tokens/jwt/decodedPublisher.class';
+import { DecodedPublisher } from '../tokens/jwt/decodedPublisher.class';
 import { UpdatePublisherDto } from './dto/update-publisher.dto';
 
 @Injectable()
@@ -33,7 +33,4 @@ export class PublisherService {
 
     return updatePublisher;
   }
-
-  
-
 }

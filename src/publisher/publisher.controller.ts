@@ -11,15 +11,15 @@ import {
 } from '@nestjs/common';
 import { PublisherService } from './publisher.service';
 import { SignupPublisherDto } from './auth/dto/signup-publisher.dto';
-import { Publisher } from './publisher.entity';
+
 import { AuthService } from './auth/auth.service';
 import { PublisherKey } from '../tokens/bcrypt/publisher-key.class';
 import { SigninPublisherDto } from './auth/dto/signin-publisher.dto';
 import { Token } from '../tokens/jwt/token.class';
-import { PublisherGuard } from 'src/guards/publisher/publisher.guard';
-import { TokenInterceptor } from 'src/interceptors/user.interceptor';
-import { TokenDecorator } from 'src/decorators/publisher/publisher.decorator';
-import { DecodedPublisher } from 'src/tokens/jwt/decodedPublisher.class';
+import { PublisherGuard } from '../guards/publisher/publisher.guard';
+import { TokenInterceptor } from '../interceptors/user.interceptor';
+import { TokenDecorator } from '../decorators/publisher/publisher.decorator';
+import { DecodedPublisher } from '../tokens/jwt/decodedPublisher.class';
 import { UpdatePublisherDto } from './dto/update-publisher.dto';
 
 @Controller('publisher')
