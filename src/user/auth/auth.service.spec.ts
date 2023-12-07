@@ -4,10 +4,16 @@ import { User } from '../user.entity';
 import { PrismaService } from '../../prisma/prisma.service';
 import { ObjectId } from 'mongodb';
 import { SignupUserDto } from './dto/signup-user.dto';
+import { SigninUserDto } from './dto/signin-user.dto';
+import { Token } from '../../jsonwebtoken/token.class';
 
 describe('AuthService', () => {
   let service: AuthService;
   let prisma: PrismaService;
+
+  const mockToken: Token = new Token(
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im1vY2tlZEByYW5kb20uY29tIiwiaWF0IjoxNzAxOTA5ODMxfQ.HS9KGjHyXE97OAumc_nSldX58pzaJrpOVBNf-UXZFt0',
+  );
 
   const mockUsers: User[] = [
     {
@@ -42,10 +48,15 @@ describe('AuthService', () => {
   };
 
   const mockSignUser: SignupUserDto = {
-    email: 'randomasfuckemail@random.com',
+    email: 'mocked@random.com',
     password: 'mock',
     profileImg: 'mock',
     username: 'usermock',
+  };
+
+  const mockUserSignin: SigninUserDto = {
+    email: 'mocked@random.com',
+    password: 'mock',
   };
 
   beforeEach(async () => {
@@ -64,6 +75,13 @@ describe('AuthService', () => {
     it('should return a new user', async () => {
       const user = await service.userSignup(mockSignUser);
       expect(user).toEqual(mockUsers[0]);
+    });
+  });
+
+  describe('userSignin', () => {
+    it('should return a new user', async () => {
+      const user = await service.userSignin(mockUserSignin);
+      expect(user).toBeDefined();
     });
   });
 });
