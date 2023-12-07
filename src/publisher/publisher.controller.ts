@@ -6,6 +6,8 @@ import {
   Delete,
   Body,
   Param,
+  UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { PublisherService } from './publisher.service';
 import { SignupPublisherDto } from './auth/dto/signup-publisher.dto';
@@ -14,6 +16,11 @@ import { AuthService } from './auth/auth.service';
 import { PublisherKey } from '../tokens/bcrypt/publisher-key.class';
 import { SigninPublisherDto } from './auth/dto/signin-publisher.dto';
 import { Token } from '../tokens/jwt/token.class';
+import { PublisherGuard } from 'src/guards/publisher/publisher.guard';
+import { TokenInterceptor } from 'src/interceptors/user.interceptor';
+import { TokenDecorator } from 'src/decorators/publisher/publisher.decorator';
+import { DecodedPublisher } from 'src/tokens/jwt/decodedPublisher.class';
+import { UpdatePublisherDto } from './dto/update-publisher.dto';
 
 @Controller('publisher')
 export class PublisherController {
@@ -34,5 +41,24 @@ export class PublisherController {
   @Post('signin')
   async publisherSignin(@Body() data: SigninPublisherDto): Promise<Token> {
     return this.auth.publisherSignin(data);
+  }
+
+  // **********   Authentication Needed Publisher Routes      **************
+
+  @UseGuards(PublisherGuard)
+  @UseInterceptors(TokenInterceptor)
+  @Get('info')
+  async getPublisherInfo(@TokenDecorator() publisher: DecodedPublisher) {
+    return this.service.getPublisherInfo(publisher);
+  }
+
+  @UseGuards(PublisherGuard)
+  @UseInterceptors(TokenInterceptor)
+  @Put('update')
+  async updatePublisherInfo(
+    @Body() data: UpdatePublisherDto,
+    @TokenDecorator() publisher: DecodedPublisher,
+  ) {
+    return this.service.updatePublisherInfo(data, publisher);
   }
 }

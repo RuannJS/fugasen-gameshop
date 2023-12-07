@@ -17,9 +17,9 @@ import { User } from './user.entity';
 import { SigninUserDto } from './auth/dto/signin-user.dto';
 import { Token } from '../tokens/jwt/token.class';
 import { UserGuard } from '../guards/user/user.guard';
-import { UserInterceptor } from '../interceptors/user/user.interceptor';
-import { UserDecorator } from '../decorators/user/user.decorator';
-import { DecodedJWT } from '../tokens/jwt/decodedJWT.class';
+import { TokenInterceptor } from 'src/interceptors/user.interceptor';
+import { TokenDecorator } from '../decorators/user/user.decorator';
+import { DecodedUser } from '../tokens/jwt/decodedUser.class';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Controller('user')
@@ -44,26 +44,26 @@ export class UserController {
   // **********   Authentication Needed User Routes      **************
 
   @UseGuards(UserGuard)
-  @UseInterceptors(UserInterceptor)
+  @UseInterceptors(TokenInterceptor)
   @Get('info')
-  async getUserInfo(@UserDecorator() user: DecodedJWT): Promise<User> {
+  async getUserInfo(@TokenDecorator() user: DecodedUser): Promise<User> {
     return await this.user.getUserInfo(user);
   }
 
   @UseGuards(UserGuard)
-  @UseInterceptors(UserInterceptor)
+  @UseInterceptors(TokenInterceptor)
   @Put('update')
   async updateUserInfo(
     @Body() data: UpdateUserDto,
-    @UserDecorator() user: DecodedJWT,
+    @TokenDecorator() user: DecodedUser,
   ): Promise<User> {
     return await this.user.updateUserInfo(data, user);
   }
 
   @UseGuards(UserGuard)
-  @UseInterceptors(UserInterceptor)
+  @UseInterceptors(TokenInterceptor)
   @Delete('delete')
-  async deleteUser(@UserDecorator() user: DecodedJWT): Promise<boolean> {
+  async deleteUser(@TokenDecorator() user: DecodedUser): Promise<boolean> {
     return await this.user.deleteUser(user);
   }
 }

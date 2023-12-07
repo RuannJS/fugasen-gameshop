@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import * as jwt from 'jsonwebtoken';
-import { DecodedUser } from 'src/tokens/jwt/decodedUser.class';
+import { DecodedPublisher } from 'src/tokens/jwt/decodedPublisher.class';
 
 export const TokenDecorator = createParamDecorator(
   (data: unknown, context: ExecutionContext) => {
@@ -8,6 +8,6 @@ export const TokenDecorator = createParamDecorator(
 
     const token = request.token;
 
-    return jwt.decode(token) as DecodedUser;
+    return jwt.decode(token) as DecodedPublisher;
   },
 );

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { User } from './user.entity';
-import { DecodedJWT } from '../tokens/jwt/decodedJWT.class';
+import { DecodedUser } from '../tokens/jwt/decodedUser.class';
 import { UpdateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -12,13 +12,13 @@ export class UserService {
     return await this.prisma.user.findUnique({ where: { email } });
   };
 
-  async getUserInfo(user: DecodedJWT): Promise<User> {
+  async getUserInfo(user: DecodedUser): Promise<User> {
     const currentUser = this.getCurrentUser(user.email);
 
     return currentUser;
   }
 
-  async updateUserInfo(data: UpdateUserDto, user: DecodedJWT): Promise<User> {
+  async updateUserInfo(data: UpdateUserDto, user: DecodedUser): Promise<User> {
     const currentUser = await this.getCurrentUser(user.email);
 
     const updatedUser = await this.prisma.user.update({
@@ -29,7 +29,7 @@ export class UserService {
     return updatedUser;
   }
 
-  async deleteUser(user: DecodedJWT): Promise<boolean> {
+  async deleteUser(user: DecodedUser): Promise<boolean> {
     const currentUser = await this.getCurrentUser(user.email);
 
     const deleteUser = await this.prisma.user.delete({
