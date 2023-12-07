@@ -63,7 +63,6 @@ describe('AuthService', () => {
   describe('userSignup', () => {
     it('should return a new user', async () => {
       const user = await service.userSignup(mockSignUser);
-
       expect(user).toEqual(mockUsers[0]);
     });
   });
